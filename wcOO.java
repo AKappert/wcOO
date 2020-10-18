@@ -5,7 +5,8 @@ import java.util.*;
 import java.io.*;
 
 
-interface iAdministrator {    	
+interface iAdministrator {    
+	void Start() throws IOException;
 }
 class Administrator implements iAdministrator {
 	static File srcFile = null;
@@ -58,7 +59,8 @@ class Administrator implements iAdministrator {
 		getFileNames(args);
 	}
 	
-	void Start() throws IOException {
+	
+	public void Start() throws IOException {
 		optionFactory OF = new optionFactory();
 		OF.getOptions(options);
 		
@@ -105,31 +107,51 @@ class optionFactory {
 }
 
 interface iOptions extends iAdministrator {	
+	void Start();
 }
 
 class Help implements iOptions {
 	Help() {
+		Start();
+	}
+
+	@Override
+	public void Start() {
 		System.out.println("Usage:	command [options] <src> {<src>}" );
 		System.out.println("\nDo some stuff like count characters, lines, and words");
 		System.out.println("\nOptions:\n	-h, -?, -help	Display this help" );
 		System.out.println("	-b, -banner	Display the banner" );
 		System.out.println("	-v, -verbose	Display ...s " );
+		
 	}
+	
 }
 
 class Banner implements iOptions {
 	Banner() {
+		Start();
+	}
+
+	@Override
+	public void Start() {
 		System.out.println("********************************************" );
 		System.out.println("This is a program designed by Andrew Kappert" );
 		System.out.println("          My student ID is 40063638");
 		System.out.println("     This was made in 2020 for SOEN 341" );
 		System.out.println("********************************************" );
+		
 	}
 }
 
 class Verbose implements iOptions {
 	Verbose(){
+		Start();
+	}
+
+	@Override
+	public void Start() {
 		Administrator.verboseActive = true;
+		
 	}
 }
 
@@ -167,7 +189,7 @@ class counterFactory {
 	
 }
 
-interface iCounter extends iAdministrator {
+interface iCounter {
 	public void Count(File srcFile) throws IOException;
 }
 
