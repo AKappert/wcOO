@@ -104,7 +104,7 @@ class optionFactory {
 	}
 }
 
-interface iOptions extends iAdministrator {
+interface iOptions extends iAdministrator {	
 }
 
 class Help implements iOptions {
@@ -168,11 +168,16 @@ class counterFactory {
 }
 
 interface iCounter extends iAdministrator {
-	
+	public void Count(File srcFile) throws IOException;
 }
 
 class charCounter implements iCounter{
 	charCounter(File srcFile) throws IOException {
+		Count(srcFile);
+	}
+	
+	@Override
+	public void Count(File srcFile) throws IOException {
 		FileInputStream srcStream = new FileInputStream(srcFile);
 		int c;
 		int nChars = 0;
@@ -183,10 +188,15 @@ class charCounter implements iCounter{
 		System.out.println("\ncharcount: " + nChars + " characters in sourceFile " + srcFile.getName());
 		srcStream.close();
 	}
+	
 }
 
 class lineCounter implements iCounter{
 	lineCounter(File srcFile) throws IOException {
+		Count(srcFile);
+	}
+	@Override
+	public void Count(File srcFile) throws IOException {
 		FileInputStream srcStream = new FileInputStream(srcFile);
 		int c;
 	    int nLines = 1;
@@ -200,10 +210,16 @@ class lineCounter implements iCounter{
 	    System.out.println("\nlinecount: " + nLines + " lines in sourceFile " + srcFile.getName());
 	    srcStream.close();
 	}
+	
 }
 
 class wordCounter implements iCounter{
 	wordCounter(File srcFile) throws IOException {
+		Count(srcFile);
+	}
+	
+	@Override
+	public void Count(File srcFile) throws IOException {
 		FileInputStream srcStream = new FileInputStream(srcFile);
 		int  c;
 		int  nWords = 0;
@@ -223,6 +239,7 @@ class wordCounter implements iCounter{
 		System.out.println("\nwordcount: " + nWords + " words in sourceFile " + srcFile.getName());
 		srcStream.close();
 	}
+	
 }
 
 
